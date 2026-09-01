@@ -7,7 +7,7 @@ plugins {
 
 group = "com.bowenfeng"
 version = "0.0.1-SNAPSHOT"
-description = "cheapgas"
+description = "petrolfindr"
 
 extra["kotlin-coroutines.version"] = "1.11.0"
 

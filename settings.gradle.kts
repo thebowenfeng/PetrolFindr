@@ -1,1 +1,1 @@
-rootProject.name = "cheapgas"
+rootProject.name = "petrolfindr"

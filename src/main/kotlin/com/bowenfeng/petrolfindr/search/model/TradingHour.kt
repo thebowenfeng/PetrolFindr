@@ -1,4 +1,4 @@
-package com.bowenfeng.cheapgas.search.model
+package com.bowenfeng.petrolfindr.search.model
 
 data class TradingHour(
     val startMinute: Int,

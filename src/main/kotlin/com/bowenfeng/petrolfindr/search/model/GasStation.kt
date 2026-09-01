@@ -1,6 +1,6 @@
-package com.bowenfeng.cheapgas.search.model
+package com.bowenfeng.petrolfindr.search.model
 
-import com.bowenfeng.cheapgas.common.Coordinate
+import com.bowenfeng.petrolfindr.common.Coordinate
 
 data class GasStation(
     val id: String,

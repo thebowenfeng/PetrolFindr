@@ -1,4 +1,4 @@
-package com.bowenfeng.cheapgas.search.model
+package com.bowenfeng.petrolfindr.search.model
 
 enum class FuelType {
     E10,

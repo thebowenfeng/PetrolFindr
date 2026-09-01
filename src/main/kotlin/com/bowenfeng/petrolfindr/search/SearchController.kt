@@ -1,8 +1,8 @@
-package com.bowenfeng.cheapgas.search
+package com.bowenfeng.petrolfindr.search
 
-import com.bowenfeng.cheapgas.search.model.BoundingBox
-import com.bowenfeng.cheapgas.search.model.GasStation
-import com.bowenfeng.cheapgas.search.model.StationSearchRequest
+import com.bowenfeng.petrolfindr.search.model.BoundingBox
+import com.bowenfeng.petrolfindr.search.model.GasStation
+import com.bowenfeng.petrolfindr.search.model.StationSearchRequest
 import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody

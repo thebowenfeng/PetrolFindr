@@ -2,10 +2,12 @@ import { Geodesic } from 'geographiclib-geodesic';
 import type {Coordinate} from "./types.ts";
 
 export const debounce = (timeout: number, func: () => void) => {
-    let timeoutId = setTimeout(func, timeout);
+    let timeoutId: ReturnType<typeof setTimeout> | undefined;
 
     return () => {
-        clearTimeout(timeoutId);
+        if (timeoutId !== undefined) {
+            clearTimeout(timeoutId);
+        }
         timeoutId = setTimeout(func, timeout);
     }
 }

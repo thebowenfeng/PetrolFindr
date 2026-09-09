@@ -30,6 +30,7 @@ dependencies {
     implementation(platform("io.ktor:ktor-bom:3.5.1"))
     implementation("io.ktor:ktor-client-core")
     implementation("io.ktor:ktor-client-cio")
+    implementation("io.ktor:ktor-client-java")
     implementation("io.ktor:ktor-client-encoding")
     implementation("io.ktor:ktor-client-content-negotiation")
     implementation("io.ktor:ktor-serialization-jackson3")

@@ -1,7 +1,7 @@
 import './App.css'
 import {MapComponent} from "./map/map.tsx";
 import {Dropdown} from "./common/components/dropdown.tsx";
-import {type ComponentProps, useState} from "react";
+import {type ComponentProps, useCallback, useState} from "react";
 import type {Coordinate, FuelType} from "./common/types.ts";
 import {GPS} from "./gps/gps.tsx";
 
@@ -83,11 +83,19 @@ const App = () => {
     const [mapFilter, setMapFilter] = useState<ComponentProps<typeof MapComponent>['mapFilter']>(undefined);
     const [currPos, setCurrPos] = useState<Coordinate | undefined>(undefined);
 
-    const onMapClick = (coordinate: Coordinate) => {
-        if (mapFilter?.customLocationFilter?.enabled) {
-            setMapFilter((filter) => ({ ...filter, gpsLocationFilter: undefined, customLocationFilter: { enabled: true, coordinate: coordinate } }));
-        }
-    }
+    const onMapClick = useCallback((coordinate: Coordinate) => {
+        setMapFilter((filter) => {
+            if (!filter?.customLocationFilter?.enabled) {
+                return filter;
+            }
+
+            return {
+                ...filter,
+                gpsLocationFilter: undefined,
+                customLocationFilter: { enabled: true, coordinate }
+            };
+        });
+    }, []);
 
     return (
       <>

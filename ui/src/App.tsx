@@ -4,10 +4,13 @@ import {Dropdown} from "./common/components/dropdown.tsx";
 import {type ComponentProps, useCallback, useState} from "react";
 import type {Coordinate, FuelType} from "./common/types.ts";
 import {GPS} from "./gps/gps.tsx";
+import {TextField} from "./common/components/text-field.tsx";
+import {Autocomplete} from "./common/components/autocomplete.tsx";
+import {searchAddresses} from "./api/client.ts";
 
 const FUEL_TYPES = [
     {
-        label: 'Select an option',
+        label: '-',
         value: 'DESELECT'
     },
     {
@@ -57,15 +60,15 @@ const FUEL_TYPES = [
 ];
 const FILTER_TYPES = [
     {
-        label: 'Select an option',
+        label: '-',
         value: 'DESELECT'
     },
     {
-        label: 'My location',
+        label: 'Near me',
         value: 'GPS'
     },
     {
-        label: 'Choose location',
+        label: 'Map pin',
         value: 'CUSTOM_GPS'
     }
 ];
@@ -112,6 +115,25 @@ const App = () => {
                           setMapFilter((filter) => ({ ...filter, gpsLocationFilter: undefined, customLocationFilter: undefined }));
                       }
                   }}
+                  placeholder="Location"
+              />
+              <Autocomplete
+                  style={{ maxWidth: '300px' }}
+                  inputComponent={<TextField placeholder="To address" />}
+                  loadOptions={async (query) => {
+                      const addresses = await searchAddresses(query, currPos);
+                      return addresses.map((address) => ({
+                          label: [
+                              address.properties.name,
+                              [address.properties.housenumber, address.properties.street].filter(Boolean).join(' '),
+                              address.properties.district,
+                              address.properties.city,
+                              address.properties.state,
+                              address.properties.postcode,
+                          ].filter(Boolean).join(', '),
+                          value: `${address.geometry.coordinates[0]},${address.geometry.coordinates[1]}`
+                      }))
+                  }}
               />
               <Dropdown
                   options={FUEL_TYPES}
@@ -123,6 +145,7 @@ const App = () => {
                           setMapFilter((filter) => ({ ...filter, gasTypeFilter: undefined }));
                       }
                   }}
+                  placeholder="Fuel Type"
               />
           </div>
           <MapComponent mapFilter={mapFilter} onMapClick={onMapClick} />

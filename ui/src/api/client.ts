@@ -1,5 +1,5 @@
 import type {BoundingBox, Coordinate, FuelType} from "../common/types.ts";
-import type {GasStation} from "./types.ts";
+import type {GasStation, PhotonResponse} from "./types.ts";
 
 let cache: GasStation[] = [];
 
@@ -31,4 +31,27 @@ export const filterGasStationsByLocation = async (location: Coordinate, allStati
         return undefined;
     }
     return await response.json() as GasStation[];
+}
+
+export const searchAddresses = async (query: string, location?: Coordinate) => {
+    const params = new URLSearchParams(location ? {
+        q: query,
+        countrycode: 'AU',
+        limit: '5',
+        lat: location?.latitude.toString(),
+        lon: location?.longitude.toString(),
+    } : {
+        q: query,
+        countrycode: 'AU',
+        limit: '5',
+    });
+
+    const response = await fetch(
+        `https://photon.komoot.io/api/?${params}`
+    );
+
+    if (!response.ok) throw new Error('Address search failed');
+
+    const { features } = await response.json() as PhotonResponse;
+    return features;
 }

@@ -1,14 +1,14 @@
 import { Geodesic } from 'geographiclib-geodesic';
 import type {Coordinate} from "./types.ts";
 
-export const debounce = (timeout: number, func: () => void) => {
+export const debounce = <Args extends unknown[]>(timeout: number, func: (...args: Args) => void) => {
     let timeoutId: ReturnType<typeof setTimeout> | undefined;
 
-    return () => {
+    return (...args: Args) => {
         if (timeoutId !== undefined) {
             clearTimeout(timeoutId);
         }
-        timeoutId = setTimeout(func, timeout);
+        timeoutId = setTimeout(func, timeout, ...args);
     }
 }
 

@@ -31,6 +31,9 @@ const meta = {
     parameters: {
         layout: 'centered',
     },
+    argTypes: {
+        width: { control: 'text' },
+    },
     render: (args) => <ControlledDropdown {...args} />,
     args: {
         options,
@@ -43,3 +46,32 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {};
+
+export const FuelTypes: Story = {
+    args: {
+        options: [
+            { value: 'E10', label: 'E10' },
+            { value: 'DIESEL', label: 'DIESEL' },
+            { value: 'BIODIESEL', label: 'BIODIESEL' },
+        ],
+        placeholder: '-',
+    },
+};
+
+export const SizeToOptionsDisabled: Story = {
+    args: {
+        sizeToOptions: false,
+    },
+};
+
+export const CustomWidth: Story = {
+    args: {
+        width: '10rem',
+    },
+};
+
+export const ResponsiveWidth: Story = {
+    args: {
+        width: 'min(80vw, 24rem)',
+    },
+};
